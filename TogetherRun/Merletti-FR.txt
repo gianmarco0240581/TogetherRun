@@ -1,0 +1,3 @@
+●	The system shall provide a user contact service via email.
+●	The system shall provide info about type, pace and distance for each running event created.
+●	The system shall provide a 5-star rating method to vote the running event organizer.
