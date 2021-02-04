@@ -1,3 +1,0 @@
-●	As a user, I want to be able to contact the running event organizer, so that I can ask for information.
-●	As a professional user, I want to know technical details of the running event, so that I can choose the most suitable workouts.
-●	As a user, I want to know if an event organizer is reliable, so that I can better evaluate whether to participate in the event.
