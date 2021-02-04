@@ -7,8 +7,8 @@ services:
 
 addons:
   sonarcloud:
-    organization: "gianmarcomerletti"
-    token: "789231355e597c937a9163f5a3fc2892641d0132"
+    organization: "gianmarco0240581"
+    token: "93757d92db41a035e40cbaf75e80c132dbccb08c"
 
 
 before_script:
