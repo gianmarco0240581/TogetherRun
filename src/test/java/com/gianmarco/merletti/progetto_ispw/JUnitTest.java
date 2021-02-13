@@ -14,7 +14,6 @@ import com.gianmarco.merletti.progetto_ispw.logic.bean.UserBean;
 import com.gianmarco.merletti.progetto_ispw.logic.controller.SystemFacade;
 import com.gianmarco.merletti.progetto_ispw.logic.dao.EventDAO;
 import com.gianmarco.merletti.progetto_ispw.logic.dao.RequestDAO;
-import com.gianmarco.merletti.progetto_ispw.logic.dao.UserDAO;
 import com.gianmarco.merletti.progetto_ispw.logic.exception.InvalidFieldException;
 import com.gianmarco.merletti.progetto_ispw.logic.exception.RequestException;
 import com.gianmarco.merletti.progetto_ispw.logic.exception.UserNotFoundException;
@@ -28,6 +27,64 @@ import com.gianmarco.merletti.progetto_ispw.logic.view.SessionView;
 
 public class JUnitTest {
 
+	/* TEST INVIO RICHIESTA DI PARTECIPAZIONE AD UN EVENTO */
+	@Test
+	public void testSendRequest() throws UserNotFoundException, InvalidFieldException, ParseException, RequestException {
+
+		UserBean userBean = new UserBean();
+		userBean.setUsername("user");
+		userBean.setPassword("user");
+		userBean.setFirstName("User");
+		userBean.setLastName("Test");
+		userBean.setLevel(LevelEnum.PRO);
+		userBean.setCity(CityEnum.ROMA);
+
+		SystemFacade facade = new SystemFacade();
+		facade.signupUser(userBean);
+
+		UserBean user = new UserBean();
+		user.setUsername("user");
+		user.setPassword("user");
+		user = new SystemFacade().isSignedUp(user);
+		SessionView.setUsername(user.getUsername());
+
+		double f = 40;
+		EventBean event = new EventBean();
+		User organizer = new User();
+		organizer.setFromBean(user);
+		event.setEventCity("ROMA");
+		event.setEventOrganizer(organizer);
+		event.setEventAddress("via //");
+		event.setEventCreationDate(new java.sql.Date(new java.util.Date().getTime()));
+		event.setEventDate(new java.sql.Date(new SimpleDateFormat("dd/MM/yyyy").parse("22/02/2022").getTime()));
+		event.setEventDescription("...");
+		event.setEventDistance(99);
+		event.setEventLatitude(Double.valueOf(f));
+		event.setEventLongitude(Double.valueOf(f));
+		event.setEventTime("22:22");
+		event.setEventTitle("title");
+		event.setEventType(TypeEnum.FARTLEK);
+		int eventId = new SystemFacade().createEvent(event);
+		event.setEventId(eventId);
+
+		RequestBean request = new RequestBean();
+		request.setRequestEvent(event);
+		request.setRequestMessage("test");
+		request.setRequestUser("test");
+		request.setRequestCreationDate(new java.sql.Date(new java.util.Date().getTime()));
+		int requestId = new SystemFacade().sendRequest(request);
+
+		Request testRequest = new RequestDAO().findById(requestId);
+		int check = testRequest.getIdRequest();
+
+
+		new SystemFacade().cancelEvent(event);
+
+		assertEquals(requestId, check);
+
+	}
+
+	/* TEST CREAZIONE DI UN NUOVO EVENTO */
 	@Test
 	public void testCreateEvent() throws InvalidFieldException, ParseException, UserNotFoundException {
 
@@ -76,6 +133,7 @@ public class JUnitTest {
 
 	}
 
+	/* TEST REGISTRAZIONE DI UN NUOVO UTENTE */
 	@Test
 	public void testSignupNewUser() throws UserNotFoundException {
 

@@ -11,13 +11,7 @@ import org.openqa.selenium.Dimension;
 import org.openqa.selenium.Point;
 import org.openqa.selenium.UnhandledAlertException;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.interactions.Actions;
-
-import com.gianmarco.merletti.progetto_ispw.logic.view.SessionView;
-
-import javafx.scene.web.WebEngine;
 
 public class sendRequestTestSelenium {
 
